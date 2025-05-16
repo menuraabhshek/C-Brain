@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropbox OAuth Token</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .token-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border: 1px solid #4caf50;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dropbox OAuth Token</h1>
+    <p>If everything went well, you should see your Dropbox access token below:</p>
+
+    <div class="token-container">
+        <strong>Access Token:</strong>
+        <pre id="token">Loading...</pre>
+
+        <strong>ID :</strong>
+        <pre id="ID">Loading...</pre>
+    </div>
+
+    <script>
+
+     function getAccessToken() {
+               const urlParams = new URLSearchParams(window.location.hash.substring(1)); // Use hash for URL fragment
+               const token = urlParams.get('access_token');
+               const userId = urlParams.get('state');
+
+               console.log(window.location.hash);
+            
+            if (token) {
+                document.getElementById('token').textContent = token;
+            } else {
+                document.getElementById('token').textContent = 'No token found in the URL.';
+            }
+
+            if (userId) {
+                document.getElementById('ID').textContent = userId;
+            } else {
+                document.getElementById('ID').textContent = 'No token found in the URL.';
+            }
+          }
+
+        window.onload = getAccessToken;
+
+
+
+    </script>
+</body>
+</html>

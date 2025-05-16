@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Input Overlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.3s ease-in-out;
+        }
+
+        .overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .overlay-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            color: white;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .overlay-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+
+        .input-group input::placeholder {
+            color: #ccc;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            margin: 5px;
+        }
+
+        .btn.submit {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn.submit:hover {
+            background: #45a049;
+        }
+
+        .btn.cancel {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn.cancel:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="inputOverlay">
+        <div class="overlay-box">
+            <div class="overlay-title" id="overlayTitle"></div>
+            <div class="input-container" id="inputFields"></div>
+            <div class="buttons">
+                <button class="btn cancel" onclick="closeOverlay()">Cancel</button>
+                <button class="btn submit" onclick="submitInputs()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+
+        // Example Usage
+        document.addEventListener("DOMContentLoaded", async () => {
+            const inputData = await getInputs("User Information", [
+                ["Full Name", "text", "name"],
+                ["Email Address", "email", "email"],
+                ["Password", "password", "password"],
+                ["Age", "number", "age"]
+            ], "userForm");
+
+            console.log("Received Data:", inputData);
+        });
+
+    </script>
+
+</body>
+</html>
